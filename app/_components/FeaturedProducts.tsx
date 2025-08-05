@@ -56,6 +56,16 @@ export default async function FeaturedProducts() {
           </div>
         ))}
       </div>
+
+      <div className="text-center mt-12">
+        <button
+          className="px-8 py-3 bg-transparent border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] 
+          rounded-full text-lg font-semibold hover:bg-[var(--color-rose-gold)] hover:text-white transition-all 
+          duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
+        >
+          View All Products
+        </button>
+      </div>
     </section>
   );
 }
