@@ -30,22 +30,6 @@ export default function Banner({
           <div className="h-1 w-24 bg-[var(--color-rose-gold)]" />
         </div>
       </div>
-
-      {/* Bottom Curve */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 0L1440 0V30C1440 46.5685 1426.57 60 1410 60H30C13.4315 60 0 46.5685 0 30V0Z"
-            fill="white"
-          />
-        </svg>
-      </div>
     </div>
   );
 }
