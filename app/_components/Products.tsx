@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaShoppingBag } from "react-icons/fa";
 import FilterProducts from "./FilterProducts";
 import NoProductsFound from "./NoProductsFound";
+import Link from "next/link";
 
 interface Product {
   id: string;
@@ -115,15 +116,15 @@ export default async function Products({
                       <FaShoppingBag className="text-lg" />
                       Add to Cart
                     </button>
-                    <a
-                      href={`/product/${product.id}`}
+                    <Link
+                      href={`/shop/${product.id}`}
                       className="px-4 py-3 border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] rounded-xl
                         flex items-center justify-center font-medium
                         hover:text-white transform hover:-translate-y-0.5 
                         transition-all duration-300"
                     >
                       View
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
