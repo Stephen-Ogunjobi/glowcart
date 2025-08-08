@@ -6,6 +6,8 @@ import { useCartStore } from "../_store/useCartStore";
 
 export default function NavLink() {
   const cartCount = useCartStore((state) => state.cartCount);
+  const toggleCart = useCartStore((state) => state.toggleCart);
+
   return (
     <nav className="flex gap-8 items-center">
       <Link href="/" className="accent font-bold">
@@ -20,8 +22,8 @@ export default function NavLink() {
       <Link href="/contact" className="accent">
         Contact
       </Link>
-      <Link
-        href="/cart"
+      <button
+        onClick={toggleCart}
         className="accent flex items-center relative"
         aria-label="Cart"
       >
@@ -33,7 +35,7 @@ export default function NavLink() {
             {cartCount}
           </span>
         )}
-      </Link>
+      </button>
       <Link href="/user" className="accent flex items-center" aria-label="User">
         <FaUser color="var(--color-rose-gold)" size={24} />
       </Link>

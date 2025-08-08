@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import { Toaster } from "react-hot-toast";
+import CartModal from "./_components/CartModal";
 
 export const metadata = {
   title: {
@@ -29,6 +30,7 @@ export default function RootLayout({
             duration: 2000,
           }}
         />
+        <CartModal />
         <Navbar />
         <main>{children}</main>
         <Footer />
