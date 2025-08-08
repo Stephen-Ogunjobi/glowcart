@@ -1,7 +1,7 @@
 import Banner from "../_components/Banner";
 import Products from "../_components/Products";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
