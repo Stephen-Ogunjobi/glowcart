@@ -3,6 +3,7 @@
 import { useCartStore } from "../_store/useCartStore";
 import { FaTimes } from "react-icons/fa";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function CartModal() {
   const isOpen = useCartStore((state) => state.isOpen);
@@ -11,6 +12,8 @@ export default function CartModal() {
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const clearCart = useCartStore((state) => state.clearCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
+
+  const router = useRouter();
 
   if (!isOpen) return null;
 
@@ -114,6 +117,10 @@ export default function CartModal() {
                 Clear Cart
               </button>
               <button
+                onClick={() => {
+                  toggleCart();
+                  router.push("/checkout");
+                }}
                 className="flex-1 py-2 px-4 bg-[var(--color-rose-gold)] text-white rounded-xl
                   hover:bg-opacity-90 transition-colors"
               >
