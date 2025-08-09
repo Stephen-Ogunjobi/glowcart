@@ -56,9 +56,9 @@ type PaymentFormValues = z.infer<typeof paymentSchema>;
 export default function Page() {
   const router = useRouter();
   const cartItems = useCartStore((s) => s.cartItems);
-  const clearCart = useCartStore((s) => s.clearCart);
+  // const clearCart = useCartStore((s) => s.clearCart);
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
-  const clearShippingInfo = useCheckoutStore((s) => s.clearShippingInfo);
+  // const clearShippingInfo = useCheckoutStore((s) => s.clearShippingInfo);
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -86,9 +86,7 @@ export default function Page() {
 
   const onSubmit = (): void => {
     toast.success("Payment successful");
-    clearCart();
-    clearShippingInfo();
-    router.push("/success");
+    router.push("/checkout/success");
   };
 
   return (
