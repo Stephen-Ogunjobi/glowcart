@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface ShippingInfo {
   fullName: string;
@@ -19,8 +20,16 @@ interface CheckoutStore {
   clearShippingInfo: () => void;
 }
 
-export const useCheckoutStore = create<CheckoutStore>((set) => ({
-  shippingInfo: null,
-  setShippingInfo: (info) => set({ shippingInfo: info }),
-  clearShippingInfo: () => set({ shippingInfo: null }),
-}));
+export const useCheckoutStore = create<CheckoutStore>()(
+  persist<CheckoutStore>(
+    (set) => ({
+      shippingInfo: null,
+      setShippingInfo: (info) => set({ shippingInfo: info }),
+      clearShippingInfo: () => set({ shippingInfo: null }),
+    }),
+    {
+      name: "glowcart-shipping",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
