@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { useCheckoutStore } from "../_store/useCheckoutStore";
+import { useRouter } from "next/navigation";
 
 const shippingSchema = z.object({
   fullName: z
@@ -32,11 +34,9 @@ const shippingSchema = z.object({
 
 export type ShippingFormValues = z.infer<typeof shippingSchema>;
 
-export default function ShippingForm({
-  onSubmit,
-}: {
-  onSubmit?: (data: ShippingFormValues) => void;
-}) {
+export default function ShippingForm() {
+  const setShippingInfo = useCheckoutStore((s) => s.setShippingInfo);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -58,8 +58,9 @@ export default function ShippingForm({
   });
 
   const handleValid = (data: ShippingFormValues) => {
+    setShippingInfo(data);
     toast.success("Shipping information saved");
-    onSubmit?.(data);
+    router.push("/checkout/payment");
   };
 
   return (
