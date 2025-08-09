@@ -41,7 +41,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/"
                   className="hover:text-[#4A071C] transition-colors"
                 >
                   About Us
@@ -74,7 +74,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/shipping"
+                  href="/shop"
                   className="hover:text-[#4A071C] transition-colors"
                 >
                   Shipping Info
@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/returns"
+                  href="/"
                   className="hover:text-[#4A071C] transition-colors"
                 >
                   Returns Policy
@@ -90,7 +90,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/faq"
+                  href="/contact"
                   className="hover:text-[#4A071C] transition-colors"
                 >
                   FAQ
@@ -98,7 +98,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/privacy"
+                  href="/contact"
                   className="hover:text-[#4A071C] transition-colors"
                 >
                   Privacy Policy
