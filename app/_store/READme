@@ -1,0 +1,287 @@
+## State Management with Zustand (with Persistence)
+
+This project uses Zustand for state management alongside its persist middleware to keep critical client state across page reloads and tab closes. It powers the shopping cart, checkout shipping information, and an order confirmation snapshot.
+
+### Why Zustand here
+
+- **Lightweight**: minimal boilerplate
+- **TypeScript-friendly**: clean, strongly-typed stores
+- **Selective subscriptions**: avoid unnecessary re-renders
+- **Persist middleware**: simple client-side persistence
+
+---
+
+## Packages
+
+Already installed in this project:
+
+```bash
+npm i zustand
+```
+
+---
+
+## Persistence Strategy Overview
+
+We persist three client states in `localStorage`:
+
+- **Cart state**: items, count, and panel open/close
+- **Checkout shipping info**: user-entered shipping data
+- **Order confirmation snapshot**: ephemeral confirmation view (24‑hour TTL)
+
+We use `persist` with `createJSONStorage(() => localStorage)` to ensure storage is only accessed in the browser (never during SSR). All consumers are client components.
+
+---
+
+## Store Architecture
+
+### Cart Store — `app/_store/useCartStore.ts`
+
+- **Responsibilities**: manage cart items and quantities, expose actions (add/remove/clear/update), maintain derived `cartCount`
+- **Persistence**: stored under key `glowcart-cart`
+
+Key implementation points:
+
+- Uses `persist` so the cart survives reloads
+- Safe `localStorage` access via `createJSONStorage`
+- Immutable updates for clarity and predictability
+
+Example (abridged):
+
+```ts
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image_url: string;
+}
+
+interface CartStore {
+  cartItems: CartItem[];
+  cartCount: number;
+  isOpen: boolean;
+  addToCart: (item: Omit<CartItem, "quantity">) => void;
+  removeFromCart: (itemId: string) => void;
+  clearCart: () => void;
+  updateQuantity: (itemId: string, quantity: number) => void;
+}
+
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set) => ({
+      cartItems: [],
+      cartCount: 0,
+      isOpen: false,
+      addToCart: (item) =>
+        set((state) => {
+          const existing = state.cartItems.find((i) => i.id === item.id);
+          if (existing) {
+            const cartItems = state.cartItems.map((i) =>
+              i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+            );
+            return { ...state, cartItems, cartCount: state.cartCount + 1 };
+          }
+          return {
+            ...state,
+            cartItems: [...state.cartItems, { ...item, quantity: 1 }],
+            cartCount: state.cartCount + 1,
+          };
+        }),
+      removeFromCart: (itemId) =>
+        set((state) => {
+          const toRemove = state.cartItems.find((i) => i.id === itemId);
+          return {
+            ...state,
+            cartItems: state.cartItems.filter((i) => i.id !== itemId),
+            cartCount: state.cartCount - (toRemove?.quantity ?? 0),
+          };
+        }),
+      clearCart: () =>
+        set((state) => ({ ...state, cartItems: [], cartCount: 0 })),
+      updateQuantity: (itemId, quantity) =>
+        set((state) => {
+          const cartItems = state.cartItems.map((i) =>
+            i.id === itemId ? { ...i, quantity } : i
+          );
+          const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+          return { ...state, cartItems, cartCount };
+        }),
+    }),
+    { name: "glowcart-cart", storage: createJSONStorage(() => localStorage) }
+  )
+);
+```
+
+### Checkout Store — `app/_store/useCheckoutStore.ts`
+
+- **Responsibilities**: hold user shipping info during checkout
+- **Persistence**: stored under key `glowcart-shipping`
+
+Example (abridged):
+
+```ts
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+
+export interface ShippingInfo {
+  fullName: string;
+  email: string;
+  phone: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  };
+}
+
+interface CheckoutStore {
+  shippingInfo: ShippingInfo | null;
+  setShippingInfo: (info: ShippingInfo) => void;
+  clearShippingInfo: () => void;
+}
+
+export const useCheckoutStore = create<CheckoutStore>()(
+  persist(
+    (set) => ({
+      shippingInfo: null,
+      setShippingInfo: (info) => set({ shippingInfo: info }),
+      clearShippingInfo: () => set({ shippingInfo: null }),
+    }),
+    {
+      name: "glowcart-shipping",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
+```
+
+---
+
+## Consuming Stores in Components
+
+Always consume stores from client components.
+
+```tsx
+"use client";
+import { useCartStore } from "app/_store/useCartStore";
+
+export function AddToCartButton({
+  product,
+}: {
+  product: { id: string; name: string; price: number; image_url: string };
+}) {
+  const addToCart = useCartStore((s) => s.addToCart);
+  return <button onClick={() => addToCart(product)}>Add to cart</button>;
+}
+```
+
+Note: Stores themselves are not marked with `"use client"`, but they must only be imported from client components because persistence relies on `localStorage` at runtime.
+
+---
+
+## Order Confirmation Snapshot (Ephemeral Persistence)
+
+The success page needs to show a stable summary after checkout, even on refresh. Since we clear cart and shipping stores after checkout, we create a separate, short‑lived snapshot in `localStorage`.
+
+Pattern used in `app/checkout/success/page.tsx`:
+
+1. On mount, try loading a saved snapshot (`glowcart-order-snapshot`).
+2. If found and not expired (24‑hour TTL), display it.
+3. If not found but cart + shipping exist (first arrival), create and save snapshot, then clear cart + shipping.
+
+Benefits:
+
+- Success page survives reloads without depending on live store state
+- Snapshot is ephemeral and self-cleans after TTL
+
+Key constants:
+
+```ts
+const ORDER_SNAPSHOT_KEY = "glowcart-order-snapshot";
+const SNAPSHOT_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
+```
+
+---
+
+## Hydration & SSR Considerations
+
+- Persisted stores rehydrate on the client. If UI depends on persisted values for initial render, guard rendering until mounted to avoid SSR hydration warnings.
+
+Example hydration guard:
+
+```tsx
+"use client";
+import { useEffect, useState } from "react";
+import { useCartStore } from "app/_store/useCartStore";
+
+export function CartCountBadge() {
+  const [hydrated, setHydrated] = useState(false);
+  const cartCount = useCartStore((s) => s.cartCount);
+  useEffect(() => setHydrated(true), []);
+  if (!hydrated) return null;
+  return <span>{cartCount}</span>;
+}
+```
+
+- Do not access `localStorage` during SSR. Using `createJSONStorage(() => localStorage)` defers access to the browser.
+
+---
+
+## Debugging Persistence
+
+- DevTools → Application → Local Storage → app origin
+- Keys used:
+  - `glowcart-cart`
+  - `glowcart-shipping`
+  - `glowcart-order-snapshot`
+- Delete a key to reset a slice.
+
+---
+
+## Common Recipes
+
+### Resetting the Cart After Successful Checkout
+
+Preserve the confirmation view while clearing cart state:
+
+```ts
+// After creating and saving the snapshot
+clearCart();
+clearShippingInfo();
+```
+
+### Selecting Minimal State
+
+Avoid unnecessary re-renders by selecting only what you need:
+
+```ts
+const cartCount = useCartStore((s) => s.cartCount);
+```
+
+### Derived Values
+
+Compute totals where you display them to avoid stale derived state:
+
+```ts
+const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+```
+
+---
+
+## Development
+
+Run the app:
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+This document focuses on how we use Zustand with persistence in this codebase. Explore `app/_store` and `app/checkout/success/page.tsx` for concrete implementations.

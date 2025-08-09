@@ -23,7 +23,11 @@ type Snapshot = {
     image_url: string;
   }>;
   subtotal: number;
+  timestamp: number;
 };
+
+const ORDER_SNAPSHOT_KEY = "glowcart-order-snapshot";
+const SNAPSHOT_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 export default function Page() {
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
@@ -39,15 +43,44 @@ export default function Page() {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
 
   useEffect(() => {
-    setSnapshot({
-      fullName: shippingInfo?.fullName,
-      address: shippingInfo?.address,
-      items: cartItems,
-      subtotal: computedSubtotal,
-    });
-    // Clear stores after snapshot so the success page stands alone
-    clearCart();
-    clearShippingInfo();
+    // Try to load existing snapshot from localStorage first
+    const savedSnapshot = localStorage.getItem(ORDER_SNAPSHOT_KEY);
+
+    if (savedSnapshot) {
+      try {
+        const parsedSnapshot: Snapshot = JSON.parse(savedSnapshot);
+        // Check if snapshot is not expired (within 24 hours)
+        if (Date.now() - parsedSnapshot.timestamp < SNAPSHOT_EXPIRY) {
+          setSnapshot(parsedSnapshot);
+          return;
+        } else {
+          // Remove expired snapshot
+          localStorage.removeItem(ORDER_SNAPSHOT_KEY);
+        }
+      } catch {
+        // Remove invalid snapshot
+        localStorage.removeItem(ORDER_SNAPSHOT_KEY);
+      }
+    }
+
+    // Create new snapshot if we have cart items and shipping info
+    if (cartItems.length > 0 && shippingInfo) {
+      const newSnapshot: Snapshot = {
+        fullName: shippingInfo.fullName,
+        address: shippingInfo.address,
+        items: cartItems,
+        subtotal: computedSubtotal,
+        timestamp: Date.now(),
+      };
+
+      // Save snapshot to localStorage
+      localStorage.setItem(ORDER_SNAPSHOT_KEY, JSON.stringify(newSnapshot));
+      setSnapshot(newSnapshot);
+
+      // Clear stores after creating snapshot
+      clearCart();
+      clearShippingInfo();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
