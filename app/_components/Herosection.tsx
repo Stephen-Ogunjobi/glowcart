@@ -1,5 +1,5 @@
-import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Herosection() {
   return (
@@ -13,12 +13,13 @@ export default function Herosection() {
           Your journey to radiant skin begins here. Explore our range of
           skincare products tailored just for you.
         </p>
-        <button
-          className="px-8 py-4 bg-[var(--color-rose-gold)] text-white rounded-full text-lg font-semibold 
+        <Link
+          href="/shop"
+          className="px-8 py-4 bg-[var(--color-rose-gold)] !text-white rounded-full text-lg font-semibold 
           hover:bg-opacity-90 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
         >
           Shop Now
-        </button>
+        </Link>
       </div>
       <div className="w-[40%] relative overflow-hidden">
         <Image
