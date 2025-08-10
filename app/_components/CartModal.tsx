@@ -28,14 +28,11 @@ export default function CartModal() {
       />
 
       {/* Cart Modal */}
-      <div className="fixed right-0 top-0 h-screen w-[400px] bg-white z-50 p-6 transform transition-transform duration-300 ease-in-out">
+      <div className="fixed right-0 top-0 h-screen w-[400px] glass z-50 p-6 transform transition-transform duration-300 ease-in-out elevated">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold text-[#4A071C]">Your Cart</h2>
-          <button
-            onClick={toggleCart}
-            className="p-2 hover:bg-[#FDF4F6] rounded-full transition-colors"
-          >
+          <button onClick={toggleCart} className="p-2 btn-ghost rounded-full">
             <FaTimes size={24} color="#4A071C" />
           </button>
         </div>
@@ -72,7 +69,7 @@ export default function CartModal() {
                             Math.max(0, item.quantity - 1)
                           )
                         }
-                        className="w-6 h-6 flex items-center justify-center bg-[#FDF4F6] text-[#4A071C] rounded hover:bg-[var(--color-rose-gold)] hover:text-white"
+                        className="w-6 h-6 flex items-center justify-center btn-ghost rounded"
                       >
                         -
                       </button>
@@ -81,7 +78,7 @@ export default function CartModal() {
                         onClick={() =>
                           updateQuantity(item.id, item.quantity + 1)
                         }
-                        className="w-6 h-6 flex items-center justify-center bg-[#FDF4F6] text-[#4A071C] rounded hover:bg-[var(--color-rose-gold)] hover:text-white"
+                        className="w-6 h-6 flex items-center justify-center btn-ghost rounded"
                       >
                         +
                       </button>
@@ -109,11 +106,7 @@ export default function CartModal() {
               </span>
             </div>
             <div className="flex gap-4">
-              <button
-                onClick={clearCart}
-                className="flex-1 py-2 px-4 border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] rounded-xl
-                  hover:bg-[var(--color-rose-gold)] hover:text-white transition-colors"
-              >
+              <button onClick={clearCart} className="btn btn-outline flex-1">
                 Clear Cart
               </button>
               <button
@@ -121,8 +114,7 @@ export default function CartModal() {
                   toggleCart();
                   router.push("/checkout");
                 }}
-                className="flex-1 py-2 px-4 bg-[var(--color-rose-gold)] text-white rounded-xl
-                  hover:bg-opacity-90 transition-colors"
+                className="btn btn-primary flex-1"
               >
                 Checkout
               </button>

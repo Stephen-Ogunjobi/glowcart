@@ -14,12 +14,7 @@ export default function NoProductsFound() {
       <h3 className="text-2xl text-[#4A071C] mb-4">
         No products found for the selected filters
       </h3>
-      <button
-        onClick={handleReset}
-        className="px-6 py-3 bg-[var(--color-rose-gold)] text-white rounded-xl
-          font-medium hover:bg-opacity-90 transform hover:-translate-y-0.5 
-          transition-all duration-300"
-      >
+      <button onClick={handleReset} className="btn btn-primary">
         Show All Products
       </button>
     </div>

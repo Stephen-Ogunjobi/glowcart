@@ -11,10 +11,7 @@ export default function ProductTile({ product }: { product: Product }) {
   const { addToCart } = useCartStore();
 
   return (
-    <div
-      className="group relative flex flex-col h-full bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-500 \
-                 border border-transparent hover:border-[var(--color-rose-gold)]/20"
-    >
+    <div className="group relative flex flex-col h-full card hover:shadow-2xl transition-all duration-500 hover-float">
       <div className="relative rounded-t-3xl overflow-hidden aspect-[4/3]">
         <Image
           src={product.image_url}
@@ -22,7 +19,7 @@ export default function ProductTile({ product }: { product: Product }) {
           fill
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full backdrop-blur bg-white/70 text-[var(--color-rose-gold)] font-semibold shadow-sm">
+        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full glass text-[var(--color-rose-gold)] font-semibold shadow-sm border border-[var(--border-soft)]">
           ${product.price}
         </div>
       </div>
@@ -54,15 +51,12 @@ export default function ProductTile({ product }: { product: Product }) {
               addToCart(product);
               toast.success(`${product.name} added to cart!`);
             }}
-            className="flex-1 py-3 px-4 rounded-xl bg-[var(--color-rose-gold)] text-white flex items-center justify-center gap-2 font-medium shadow-sm hover:bg-opacity-95 hover:shadow-lg active:scale-[.99] transition-all duration-300"
+            className="btn btn-primary flex-1"
           >
             <FaShoppingBag className="text-lg" />
             Add to Cart
           </button>
-          <Link
-            href={`/shop/${product.id}`}
-            className="px-4 py-3 rounded-xl border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] flex items-center justify-center font-medium hover:bg-[var(--color-rose-gold)] hover:text-white transition-all duration-300"
-          >
+          <Link href={`/shop/${product.id}`} className="btn btn-outline">
             View
           </Link>
         </div>

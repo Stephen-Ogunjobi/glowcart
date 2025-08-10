@@ -15,7 +15,7 @@ export default async function FeaturedProducts() {
   }
 
   return (
-    <section className="py-16 px-8">
+    <section className="py-16 px-8 section">
       <h2 className="text-4xl font-playfair text-[#4A071C] text-center mb-12">
         Featured Products
       </h2>
@@ -23,7 +23,7 @@ export default async function FeaturedProducts() {
         {products.map((product) => (
           <div
             key={product.id}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300"
+            className="card overflow-hidden group hover:shadow-xl transition-shadow duration-300"
           >
             {/* Product Image */}
             <div className="relative h-64 overflow-hidden">
@@ -55,12 +55,7 @@ export default async function FeaturedProducts() {
       </div>
 
       <div className="text-center mt-12">
-        <Link
-          href="/shop"
-          className="px-8 py-3 bg-transparent border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] 
-          rounded-full text-lg font-semibold hover:bg-[var(--color-rose-gold)] hover:text-white transition-all 
-          duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
-        >
+        <Link href="/shop" className="btn btn-outline text-lg">
           View All Products
         </Link>
       </div>
