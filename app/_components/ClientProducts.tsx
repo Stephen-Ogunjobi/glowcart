@@ -1,13 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import { FaShoppingBag } from "react-icons/fa";
-import Link from "next/link";
-import { useCartStore } from "../_store/useCartStore";
+// removed unused imports after refactor
 import FilterProducts from "./FilterProducts";
 import NoProductsFound from "./NoProductsFound";
 import { Product } from "./Products";
-import toast from "react-hot-toast";
+import ProductTile from "./ProductTile";
 
 export default function ClientProducts({
   products,
@@ -16,7 +13,6 @@ export default function ClientProducts({
   products: Product[];
   searchParams: { categorySort?: string; skinTypeSort?: string };
 }) {
-  const { addToCart } = useCartStore();
   const categoryFilter = searchParams.categorySort;
   const skinTypeFilter = searchParams.skinTypeSort;
 
@@ -35,7 +31,7 @@ export default function ClientProducts({
   });
 
   return (
-    <section className="py-12 px-8">
+    <section className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-playfair text-[#4A071C] text-center mb-8">
           All Products
@@ -49,84 +45,9 @@ export default function ClientProducts({
         {filteredProducts.length === 0 ? (
           <NoProductsFound />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 [grid-auto-rows:1fr]">
             {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group relative bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-500 
-                           border border-transparent hover:border-[var(--color-rose-gold)]/20"
-              >
-                {/* Product Image */}
-                <div className="relative h-64 rounded-t-3xl overflow-hidden">
-                  <Image
-                    src={product.image_url}
-                    alt={product.name}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Price chip */}
-                  <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full backdrop-blur bg-white/70 text-[var(--color-rose-gold)] font-semibold shadow-sm">
-                    ${product.price}
-                  </div>
-                </div>
-
-                {/* Product Info */}
-                <div className="p-6 flex flex-col h-[260px]">
-                  <div className="flex-1 space-y-3">
-                    <h3 className="text-lg font-semibold text-[#4A071C] group-hover:text-[var(--color-rose-gold)] transition-colors duration-300">
-                      {product.name}
-                    </h3>
-
-                    {/* Tags Container */}
-                    <div className="flex flex-col flex-wrap gap-2">
-                      {/* Category Tag */}
-                      <div>
-                        <span className="inline-block px-3 py-1 text-sm bg-[var(--color-beige)] text-[var(--color-rose-gold)] rounded-full">
-                          {product.category}
-                        </span>
-                      </div>
-
-                      {/* Skin Type Tags */}
-                      <div>
-                        {product.skin_type &&
-                          product.skin_type.map((skinType, index) => (
-                            <div
-                              key={index}
-                              className="inline-block px-3 py-1 text-sm bg-[#FDF4F6] text-[#4A071C] rounded-full"
-                            >
-                              {skinType}
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Button Group */}
-                  <div className="flex gap-3 mt-auto">
-                    <button
-                      onClick={() => {
-                        addToCart(product);
-                        toast.success(`${product.name} added to cart!`);
-                      }}
-                      className="flex-1 py-3 px-4 rounded-xl bg-[var(--color-rose-gold)] text-white
-                                 flex items-center justify-center gap-2 font-medium shadow-sm
-                                 hover:bg-opacity-95 hover:shadow-lg active:scale-[.99]
-                                 transition-all duration-300"
-                    >
-                      <FaShoppingBag className="text-lg" />
-                      Add to Cart
-                    </button>
-                    <Link
-                      href={`/shop/${product.id}`}
-                      className="px-4 py-3 rounded-xl border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)]
-                                 flex items-center justify-center font-medium hover:bg-[var(--color-rose-gold)] hover:text-white
-                                 transition-all duration-300"
-                    >
-                      View
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <ProductTile key={product.id} product={product} />
             ))}
           </div>
         )}

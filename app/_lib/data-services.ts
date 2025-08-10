@@ -37,3 +37,18 @@ export async function getProductById(productId: string) {
 
   return product;
 }
+
+export async function getProductByCategory(category: string) {
+  // Use case-insensitive substring match to be resilient to pluralization/spacing
+  const pattern = `%${category}%`;
+  const { data: products, error } = await supabase
+    .from("products")
+    .select("*")
+    .ilike("category", pattern);
+
+  if (error) {
+    throw new Error("Products could not be loaded");
+  }
+
+  return products;
+}

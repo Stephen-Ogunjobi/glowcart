@@ -1,7 +1,7 @@
 import { getProductById } from "@/app/_lib/data-services";
 import Image from "next/image";
 import Link from "next/link";
-import { FaShoppingBag, FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaShoppingBag } from "react-icons/fa";
 
 interface Product {
   id: string;
@@ -16,9 +16,9 @@ interface Product {
 export default async function ProductPage({
   params,
 }: {
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }) {
-  const productId = params.productId;
+  const { productId } = await params;
   const product = (await getProductById(productId)) as Product;
 
   if (!product) {
