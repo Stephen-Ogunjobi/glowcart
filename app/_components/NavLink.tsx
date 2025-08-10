@@ -1,44 +1,105 @@
 "use client";
 
 import Link from "next/link";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { useState } from "react";
+import { FaShoppingCart, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { useCartStore } from "../_store/useCartStore";
 
 export default function NavLink() {
   const cartCount = useCartStore((state) => state.cartCount);
   const toggleCart = useCartStore((state) => state.toggleCart);
+  const [isOpen, setIsOpen] = useState(false);
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="flex gap-8 items-center">
-      <Link href="/" className="accent font-bold">
-        Home
-      </Link>
-      <Link href="/shop" className="accent">
-        Shop
-      </Link>
-      <Link href="/blog" className="accent">
-        Blog
-      </Link>
-      <Link href="/contact" className="accent">
-        Contact
-      </Link>
-      <button
-        onClick={toggleCart}
-        className="accent flex items-center relative hover-float"
-        aria-label="Cart"
-      >
-        <span className="mr-1">
-          <FaShoppingCart color="var(--color-rose-gold)" size={24} />
-        </span>
-        {cartCount > 0 && (
-          <span className="absolute -top-2 -right-2 bg-[var(--color-rose-gold)] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs soft-shadow">
-            {cartCount}
+    <nav className="relative flex items-center gap-2 md:gap-4">
+      {/* Desktop links */}
+      <div className="hidden md:flex items-center gap-2 md:gap-3">
+        <Link href="/" className="navlink font-semibold">
+          Home
+        </Link>
+        <Link href="/shop" className="navlink">
+          Shop
+        </Link>
+        <Link href="/blog" className="navlink">
+          Blog
+        </Link>
+        <Link href="/contact" className="navlink">
+          Contact
+        </Link>
+      </div>
+
+      {/* Right-side actions */}
+      <div className="flex items-center gap-2 md:gap-3 ml-auto">
+        <button
+          onClick={toggleCart}
+          className="accent flex items-center relative hover-float navlink"
+          aria-label="Cart"
+        >
+          <span className="mr-1">
+            <FaShoppingCart color="var(--color-rose-gold)" size={20} />
           </span>
-        )}
-      </button>
-      <Link href="/user" className="accent flex items-center" aria-label="User">
-        <FaUser color="var(--color-rose-gold)" size={24} />
-      </Link>
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-[var(--color-rose-gold)] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs soft-shadow badge-pulse">
+              {cartCount}
+            </span>
+          )}
+        </button>
+
+        {/* User icon on md+ */}
+        <Link
+          href="/user"
+          className="accent items-center navlink hidden md:flex"
+          aria-label="User"
+        >
+          <FaUser color="var(--color-rose-gold)" size={18} />
+        </Link>
+
+        {/* Hamburger for mobile */}
+        <button
+          className="navlink md:hidden"
+          aria-label="Open menu"
+          aria-expanded={isOpen}
+          aria-controls="mobile-nav-dropdown"
+          onClick={() => setIsOpen((v) => !v)}
+        >
+          {isOpen ? (
+            <FaTimes color="var(--color-rose-gold)" size={18} />
+          ) : (
+            <FaBars color="var(--color-rose-gold)" size={18} />
+          )}
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      {isOpen && (
+        <div
+          id="mobile-nav-dropdown"
+          className="absolute right-0 top-full mt-3 w-64 card elevated p-2 md:hidden"
+        >
+          <div className="flex flex-col gap-1">
+            <Link href="/" className="navlink w-full" onClick={closeMenu}>
+              Home
+            </Link>
+            <Link href="/shop" className="navlink w-full" onClick={closeMenu}>
+              Shop
+            </Link>
+            <Link href="/blog" className="navlink w-full" onClick={closeMenu}>
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              className="navlink w-full"
+              onClick={closeMenu}
+            >
+              Contact
+            </Link>
+            <Link href="/user" className="navlink w-full" onClick={closeMenu}>
+              Account
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

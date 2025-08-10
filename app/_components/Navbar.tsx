@@ -3,7 +3,7 @@ import NavLink from "./NavLink";
 
 export default function Navbar() {
   return (
-    <header className="w-full px-8 py-4 flex items-center justify-between glass elevated rounded-b-2xl transition-all duration-300 hover:shadow-xl">
+    <header className="w-full sticky top-0 z-40 px-4 md:px-8 py-2 md:py-3 flex items-center justify-between bg-transparent transition-all duration-300">
       <Logo />
       <NavLink />
     </header>

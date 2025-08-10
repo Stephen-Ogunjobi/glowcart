@@ -79,10 +79,14 @@ a {
 }
 
 .navlink {
-  padding: 0.5rem 1.2rem;
-  border-radius: 1.5rem;
-  font-size: 1.1rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   background: transparent;
+  border: 1px solid var(--border-soft);
+  color: var(--text-primary);
   transition: background 0.3s var(--ease-sweet), color 0.3s var(--ease-sweet),
     box-shadow 0.3s var(--ease-sweet);
   position: relative;
@@ -91,8 +95,25 @@ a {
 .navlink:focus-visible {
   background: var(--color-pink);
   color: var(--color-rose-gold);
-  box-shadow: 0 2px 12px 0 rgba(183, 110, 121, 0.12);
+  box-shadow: 0 2px 12px 0 rgba(183, 110, 121, 0.12),
+    inset 0 0 0 1px rgba(183, 110, 121, 0.25);
   text-decoration: none;
+}
+
+/* Animated badge helper */
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.badge-pulse {
+  animation: badgePulse 1.6s var(--ease-sweet) infinite;
 }
 
 /* Focus styles */
