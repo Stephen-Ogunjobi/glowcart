@@ -1,5 +1,6 @@
 import { getProducts } from "../_lib/data-services";
 import Image from "next/image";
+import AddToCartBtn from "./AddToCartBtn";
 
 export default async function FeaturedProducts() {
   const products = await getProducts(3);
@@ -45,12 +46,7 @@ export default async function FeaturedProducts() {
                 <span className="text-2xl font-bold text-[var(--color-rose-gold)]">
                   ${product.price}
                 </span>
-                <button
-                  className="px-4 py-2 bg-[var(--color-rose-gold)] text-white rounded-full 
-                  hover:bg-opacity-90 transition-all duration-300 hover:shadow-md transform hover:-translate-y-0.5"
-                >
-                  Add to Cart
-                </button>
+                <AddToCartBtn product={product} />
               </div>
             </div>
           </div>
