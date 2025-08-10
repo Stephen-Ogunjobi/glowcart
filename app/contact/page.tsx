@@ -40,6 +40,7 @@ export default function ContactPage() {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    console.log(data);
     toast.success("Thanks for reaching out! We'll get back to you shortly.");
     reset();
   };
