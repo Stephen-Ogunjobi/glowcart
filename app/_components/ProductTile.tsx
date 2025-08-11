@@ -11,7 +11,7 @@ export default function ProductTile({ product }: { product: Product }) {
   const { addToCart } = useCartStore();
 
   return (
-    <div className="group relative flex flex-col h-full card hover:shadow-2xl transition-all duration-500 hover-float">
+    <div className="group relative flex flex-col h-full card hover:shadow-2xl transition-all duration-500 hover-tilt">
       <div className="relative rounded-t-3xl overflow-hidden aspect-[4/3]">
         <Image
           src={product.image_url}
@@ -19,6 +19,28 @@ export default function ProductTile({ product }: { product: Product }) {
           fill
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
+        <div className="image-overlay" />
+        <button
+          aria-label="Add to wishlist"
+          className="favorite-btn"
+          title="Add to wishlist"
+        >
+          ♥
+        </button>
+        <div className="quick-action-bar">
+          <Link href={`/shop/${product.id}`} className="btn btn-ghost">
+            View
+          </Link>
+          <button
+            onClick={() => {
+              addToCart(product);
+              toast.success(`${product.name} added to cart!`);
+            }}
+            className="btn btn-primary"
+          >
+            Quick Add
+          </button>
+        </div>
         <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full glass text-[var(--color-rose-gold)] font-semibold shadow-sm border border-[var(--border-soft)]">
           ${product.price}
         </div>

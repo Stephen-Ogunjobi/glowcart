@@ -31,7 +31,7 @@ export default function ClientProducts({
   });
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8">
+    <section className="section py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-playfair text-[#4A071C] text-center mb-8">
           All Products

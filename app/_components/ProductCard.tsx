@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <div
       key={product.id}
-      className="group relative flex flex-col h-full card hover:shadow-2xl transition-all duration-500 hover-float"
+      className="group relative flex flex-col h-full card hover:shadow-2xl transition-all duration-500 hover-tilt"
     >
       {/* Product Image */}
       <div className="relative rounded-t-3xl overflow-hidden aspect-[4/3]">
@@ -21,6 +21,30 @@ export default function ProductCard({ product }: { product: Product }) {
           fill
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
+        <div className="image-overlay" />
+        {/* Wishlist Heart */}
+        <button
+          aria-label="Add to wishlist"
+          className="favorite-btn"
+          title="Add to wishlist"
+        >
+          ♥
+        </button>
+        {/* Quick actions on hover */}
+        <div className="quick-action-bar">
+          <Link href={`/shop/${product.id}`} className="btn btn-ghost">
+            View
+          </Link>
+          <button
+            onClick={() => {
+              AddToCartBtn({ product });
+              toast.success(`${product.name} added to cart!`);
+            }}
+            className="btn btn-primary"
+          >
+            Quick Add
+          </button>
+        </div>
         {/* Price chip */}
         <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full glass text-[var(--color-rose-gold)] font-semibold shadow-sm border border-[var(--border-soft)]">
           ${product.price}

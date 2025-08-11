@@ -4,7 +4,6 @@ import Link from "next/link";
 export default function Herosection() {
   return (
     <section className="relative overflow-hidden section min-h-[80vh] h-[85vh] flex flex-row">
-      {/* Decorative background blobs */}
       <div
         className="pointer-events-none absolute -top-24 -left-20 w-[380px] h-[380px] rounded-full blur-3xl opacity-40"
         style={{
@@ -20,7 +19,6 @@ export default function Herosection() {
         }}
       />
 
-      {/* Content */}
       <div className="w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible">
         <span aria-hidden className="edge-flare block" />
         <h2 className="font-playfair font-bold leading-tight text-5xl sm:text-6xl md:text-7xl glow-text-rose">

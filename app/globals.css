@@ -276,10 +276,76 @@ a {
   box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
 }
 
+/* Subtle tilt effect for cards */
+.hover-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.4s var(--ease-sweet),
+    box-shadow 0.3s var(--ease-sweet);
+}
+.hover-tilt:hover {
+  transform: translateY(-2px) rotateX(0.6deg) rotateY(-0.6deg);
+}
+
 /* Glow text for hero headings */
 .glow-text-rose {
   text-shadow: 0 2px 8px rgba(183, 110, 121, 0.35),
     0 6px 22px rgba(183, 110, 121, 0.28), 0 0 1px rgba(183, 110, 121, 0.5);
+}
+
+/* Image overlay helper */
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-sweet);
+}
+.group:hover .image-overlay {
+  opacity: 1;
+}
+
+/* Favorite heart button */
+.favorite-btn {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-rose-gold);
+  box-shadow: 0 6px 18px rgba(183, 110, 121, 0.18);
+  transition: transform 0.2s var(--ease-sweet),
+    background 0.2s var(--ease-sweet);
+}
+.favorite-btn:hover {
+  transform: translateY(-1px);
+  background: #fff;
+}
+
+/* Quick action bar */
+.quick-action-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.75rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s var(--ease-sweet), transform 0.3s var(--ease-sweet);
+}
+.group:hover .quick-action-bar {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Slow, subtle zoom pulse for hero imagery */
