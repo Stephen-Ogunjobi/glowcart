@@ -1,7 +1,8 @@
+import AddToCartBtn from "@/app/_components/AddToCartBtn";
 import { getProductById } from "@/app/_lib/data-services";
 import Image from "next/image";
 import Link from "next/link";
-import { FaArrowLeft, FaShoppingBag } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 interface Product {
   id: string;
@@ -112,15 +113,7 @@ export default async function ProductPage({
               </p>
             </div>
 
-            {/* Add to Cart Button */}
-            <button
-              className="w-full py-4 bg-[var(--color-rose-gold)] text-white rounded-xl
-                flex items-center justify-center gap-2 font-medium text-lg
-                hover:bg-opacity-90 transform hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <FaShoppingBag className="text-xl" />
-              Add to Cart
-            </button>
+            <AddToCartBtn product={product} />
           </div>
         </div>
       </div>

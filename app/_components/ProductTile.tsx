@@ -2,24 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaShoppingBag } from "react-icons/fa";
 import { useCartStore } from "../_store/useCartStore";
-import toast from "react-hot-toast";
 import { Product } from "./Products";
+import AddToCartBtn from "./AddToCartBtn";
 
 export default function ProductTile({ product }: { product: Product }) {
-  const { addToCart } = useCartStore();
+  // Accessing store keeps component consistent with others if needed later
+  useCartStore();
 
   return (
-    <div className="group relative flex flex-col h-full card hover:shadow-2xl transition-all duration-500 hover-tilt">
-      <div className="relative rounded-t-3xl overflow-hidden aspect-[4/3]">
+    <div className="group relative flex flex-col h-full card hover:shadow-2xl transition-shadow duration-500">
+      <div className="relative h-64 overflow-hidden rounded-t-3xl">
         <Image
           src={product.image_url}
           alt={product.name}
           fill
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="image-overlay" />
         <button
           aria-label="Add to wishlist"
           className="favorite-btn"
@@ -27,20 +26,7 @@ export default function ProductTile({ product }: { product: Product }) {
         >
           ♥
         </button>
-        <div className="quick-action-bar">
-          <Link href={`/shop/${product.id}`} className="btn btn-ghost">
-            View
-          </Link>
-          <button
-            onClick={() => {
-              addToCart(product);
-              toast.success(`${product.name} added to cart!`);
-            }}
-            className="btn btn-primary"
-          >
-            Quick Add
-          </button>
-        </div>
+
         <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full glass text-[var(--color-rose-gold)] font-semibold shadow-sm border border-[var(--border-soft)]">
           ${product.price}
         </div>
@@ -67,17 +53,10 @@ export default function ProductTile({ product }: { product: Product }) {
           </div>
         </div>
 
-        <div className="flex gap-3 mt-4">
-          <button
-            onClick={() => {
-              addToCart(product);
-              toast.success(`${product.name} added to cart!`);
-            }}
-            className="btn btn-primary flex-1"
-          >
-            <FaShoppingBag className="text-lg" />
-            Add to Cart
-          </button>
+        <div className="relative z-10 flex gap-3 mt-4">
+          <div className="flex-1">
+            <AddToCartBtn product={product} />
+          </div>
           <Link href={`/shop/${product.id}`} className="btn btn-outline">
             View
           </Link>

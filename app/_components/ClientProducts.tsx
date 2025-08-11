@@ -1,6 +1,5 @@
 "use client";
 
-// removed unused imports after refactor
 import FilterProducts from "./FilterProducts";
 import NoProductsFound from "./NoProductsFound";
 import { Product } from "./Products";
