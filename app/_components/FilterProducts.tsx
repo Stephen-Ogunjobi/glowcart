@@ -37,11 +37,11 @@ export default function ProductFilters({
   }
 
   return (
-    <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+    <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-12">
       <div className="relative min-w-[200px]">
         <select
-          className="w-full px-4 py-3 rounded-xl border-2 border-[var(--color-rose-gold)] 
-            text-[#4A071C] bg-white appearance-none cursor-pointer
+          className="w-full px-4 py-3 rounded-full border-2 border-[var(--color-rose-gold)] 
+            text-[#4A071C] bg-white appearance-none cursor-pointer shadow-sm
             focus:outline-none focus:ring-2 focus:ring-[var(--color-rose-gold)] focus:ring-opacity-50"
           value={activeSortCategory || ""}
           onChange={(e) => handleCategoryChange(e)}
@@ -75,8 +75,8 @@ export default function ProductFilters({
 
       <div className="relative min-w-[200px]">
         <select
-          className="w-full px-4 py-3 rounded-xl border-2 border-[var(--color-rose-gold)] 
-            text-[#4A071C] bg-white appearance-none cursor-pointer
+          className="w-full px-4 py-3 rounded-full border-2 border-[var(--color-rose-gold)] 
+            text-[#4A071C] bg-white appearance-none cursor-pointer shadow-sm
             focus:outline-none focus:ring-2 focus:ring-[var(--color-rose-gold)] focus:ring-opacity-50"
           value={activeSortSkinType || ""}
           onChange={(e) => handleSkinTypeChange(e)}
