@@ -187,6 +187,18 @@ a {
 .btn-primary:hover {
   box-shadow: 0 10px 24px rgba(183, 110, 121, 0.3);
 }
+.btn-gradient {
+  background: var(--gradient-rose);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(183, 110, 121, 0.25);
+}
+.btn-gradient:hover {
+  filter: brightness(0.98);
+  box-shadow: 0 10px 24px rgba(183, 110, 121, 0.32);
+}
+.btn-gradient-dark {
+  color: var(--text-primary);
+}
 .btn-outline {
   background: transparent;
   color: var(--color-rose-gold);
@@ -262,6 +274,48 @@ a {
 .hover-float:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2);
+}
+
+/* Glow text for hero headings */
+.glow-text-rose {
+  text-shadow: 0 2px 8px rgba(183, 110, 121, 0.35),
+    0 6px 22px rgba(183, 110, 121, 0.28), 0 0 1px rgba(183, 110, 121, 0.5);
+}
+
+/* Slow, subtle zoom pulse for hero imagery */
+@keyframes zoomPulseSlow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.zoom-pulse-slow {
+  animation: zoomPulseSlow 10s var(--ease-sweet) infinite;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Soft vertical flare to smooth content/visual divider */
+.edge-flare {
+  position: absolute;
+  right: -3rem;
+  top: 0;
+  bottom: 0;
+  width: 11rem;
+  pointer-events: none;
+  background: radial-gradient(
+    8rem 70% at 100% 50%,
+    rgba(183, 110, 121, 0.35) 0%,
+    rgba(183, 110, 121, 0.22) 40%,
+    transparent 75%
+  );
+  filter: blur(18px);
+  z-index: 10;
 }
 
 /* Reduced motion respect */
