@@ -19,13 +19,14 @@ function useCountUp(end: number, duration: number = 2000, start: number = 0) {
       { threshold: 0.1 }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    const el = observerRef.current;
+    if (el) {
+      observer.observe(el);
     }
 
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (el) {
+        observer.unobserve(el);
       }
     };
   }, [isInView]);
@@ -68,11 +69,17 @@ function StatCard({
   return (
     <div
       ref={observerRef}
-      className="text-center p-8 rounded-2xl bg-white/50 backdrop-blur-sm
-        shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="relative text-center p-8 card elevated hover-tilt transition-all duration-300"
     >
-      <Icon className="text-4xl mb-4 mx-auto block text-[var(--color-rose-gold)]" />
-      <h3 className="text-4xl font-bold text-[#4A071C] mb-2">
+      <span
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{ background: "var(--gradient-rose)" }}
+      />
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center bg-[var(--color-blush)]/70 text-[var(--color-rose-gold)] soft-shadow">
+        <Icon className="text-2xl" />
+      </div>
+      <h3 className="text-4xl font-bold mb-2 gradient-text">
         {count.toLocaleString()}+
       </h3>
       <p className="text-[var(--color-rose-gold)] text-lg">{label}</p>
@@ -99,9 +106,27 @@ export default function Reviews() {
     },
   ];
   return (
-    <section className="py-16 px-8 bg-gradient-to-r from-[var(--color-beige)] to-[var(--color-offwhite)]">
+    <section className="relative overflow-hidden section py-16 px-8">
+      {/* Decorative background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 -top-20 w-[360px] h-[360px] rounded-full blur-3xl opacity-40"
+        style={{
+          background:
+            "radial-gradient(closest-side, var(--color-rose) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 -bottom-20 w-[420px] h-[420px] rounded-full blur-3xl opacity-40"
+        style={{
+          background:
+            "radial-gradient(closest-side, var(--color-lavender) 0%, transparent 70%)",
+        }}
+      />
+
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {stats.map((stat) => (
             <StatCard
               key={stat.label}
