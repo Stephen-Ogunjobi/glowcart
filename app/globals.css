@@ -384,6 +384,36 @@ a {
   z-index: 10;
 }
 
+/* Entrance animations for PDP */
+@keyframes slideInLTR {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+@keyframes slideInRTL {
+  0% {
+    opacity: 0;
+    transform: translateX(32px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+.slide-in-ltr {
+  animation: slideInLTR 600ms var(--ease-sweet) both;
+  will-change: transform, opacity;
+}
+.slide-in-rtl {
+  animation: slideInRTL 600ms var(--ease-sweet) both;
+  will-change: transform, opacity;
+}
+
 /* Reduced motion respect */
 @media (prefers-reduced-motion: reduce) {
   * {
