@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import confetti from "canvas-confetti";
 import { useCartStore } from "../../_store/useCartStore";
 import { useCheckoutStore } from "../../_store/useCheckoutStore";
 import { FaCheckCircle } from "react-icons/fa";
@@ -43,6 +44,18 @@ export default function Page() {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
 
   useEffect(() => {
+    // Celebrate with themed confetti
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      startVelocity: 45,
+      decay: 0.9,
+      scalar: 1,
+      origin: { x: 0.5, y: 0.2 },
+      zIndex: 9999,
+      colors: ["#b76e79", "#f7c9d1", "#fadadd", "#e9e2ff", "#fffaf7"],
+    });
+
     // Try to load existing snapshot from localStorage first
     const savedSnapshot = localStorage.getItem(ORDER_SNAPSHOT_KEY);
 

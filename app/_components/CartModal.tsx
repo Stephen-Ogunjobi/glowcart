@@ -17,18 +17,26 @@ export default function CartModal() {
 
   if (!isOpen) return null;
 
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const freeShippingThreshold = 50;
+  const progress = Math.min(
+    100,
+    Math.round((total / freeShippingThreshold) * 100)
+  );
 
   return (
     <>
       {/* Overlay */}
-      <div
-        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
-        onClick={toggleCart}
-      />
+      <div className="fixed inset-0 z-40" onClick={toggleCart}>
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(70%_50%_at_100%_0%,rgba(247,201,209,0.18),transparent)]" />
+      </div>
 
       {/* Cart Modal */}
-      <div className="fixed right-0 top-0 h-screen w-[400px] glass z-50 p-6 transform transition-transform duration-300 ease-in-out elevated">
+      <div className="fixed right-0 top-0 h-screen w-[400px] card z-50 p-6 transform transition-transform duration-300 ease-in-out elevated">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold text-[#4A071C]">Your Cart</h2>
@@ -38,16 +46,13 @@ export default function CartModal() {
         </div>
 
         {/* Cart Items */}
-        <div className="flex-1 overflow-y-auto max-h-[calc(100vh-250px)]">
+        <div className="flex-1 overflow-y-auto max-h-[calc(100vh-260px)] pr-1">
           {cartItems.length === 0 ? (
             <p className="text-center text-gray-500 mt-8">Your cart is empty</p>
           ) : (
             <div className="space-y-4">
               {cartItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex gap-4 bg-white p-4 rounded-lg shadow"
-                >
+                <div key={item.id} className="flex gap-4 card p-4">
                   <div className="relative w-20 h-20">
                     <Image
                       src={item.image_url}
@@ -99,6 +104,28 @@ export default function CartModal() {
         {/* Footer */}
         {cartItems.length > 0 && (
           <div className="border-t pt-4 mt-4 space-y-4">
+            {/* Free shipping progress */}
+            <div>
+              <div className="flex items-center justify-between mb-2 text-sm">
+                <span className="text-[#4A071C]">Free shipping</span>
+                <span className="text-[var(--color-rose-gold)] font-medium">
+                  ${freeShippingThreshold.toFixed(0)}
+                </span>
+              </div>
+              <div className="progress-track">
+                <div
+                  className="progress-fill"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <p className="mt-1 text-xs text-[#4A071C]/70">
+                {total >= freeShippingThreshold
+                  ? "You unlocked free shipping!"
+                  : `Add $${(freeShippingThreshold - total).toFixed(
+                      2
+                    )} more to get free shipping`}
+              </p>
+            </div>
             <div className="flex justify-between items-center">
               <span className="font-semibold text-[#4A071C]">Total:</span>
               <span className="font-bold text-[var(--color-rose-gold)]">

@@ -90,13 +90,13 @@ export default function Page() {
   };
 
   return (
-    <section className="py-12 px-8">
+    <section className="section py-12 px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-playfair text-[#4A071C] mb-8">Payment</h1>
+        <h1 className="text-4xl font-playfair glow-text-rose mb-8">Payment</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6">
+            <div className="card elevated p-6 space-y-6">
               {shippingInfo && (
                 <div className="bg-[var(--color-beige)] bg-opacity-60 p-4 rounded-xl">
                   <h3 className="font-semibold text-[#4A071C] mb-1">
@@ -307,7 +307,7 @@ export default function Page() {
           </div>
 
           <aside className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-6">
+            <div className="card elevated p-6">
               <h2 className="text-2xl font-semibold text-[#4A071C] mb-4">
                 Order Summary
               </h2>
@@ -349,24 +349,54 @@ export default function Page() {
                     ))}
                   </ul>
 
-                  <div className="mt-6 space-y-3">
-                    <div className="flex items-center justify-between text-[#4A071C]">
-                      <span>Subtotal</span>
-                      <span className="font-semibold">
-                        ${subtotal.toFixed(2)}
-                      </span>
+                  <div className="mt-6">
+                    {/* Free shipping progress summary */}
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-2 text-sm">
+                        <span className="text-[#4A071C]">Free shipping</span>
+                        <span className="text-[var(--color-rose-gold)] font-medium">
+                          $50
+                        </span>
+                      </div>
+                      <div className="progress-track">
+                        <div
+                          className="progress-fill"
+                          style={{
+                            width: `${Math.min(
+                              100,
+                              Math.round((subtotal / 50) * 100)
+                            )}%`,
+                          }}
+                        />
+                      </div>
+                      <p className="mt-1 text-xs text-[#4A071C]/70">
+                        {subtotal >= 50
+                          ? "You unlocked free shipping!"
+                          : `Add $${(50 - subtotal).toFixed(
+                              2
+                            )} more to get free shipping`}
+                      </p>
                     </div>
-                    <div className="flex items-center justify-between text-[#4A071C]">
-                      <span>Shipping</span>
-                      <span className="font-semibold">Free</span>
-                    </div>
-                    <div className="border-t pt-3 flex items-center justify-between">
-                      <span className="font-semibold text-[#4A071C]">
-                        Total
-                      </span>
-                      <span className="text-xl font-bold text-[var(--color-rose-gold)]">
-                        ${subtotal.toFixed(2)}
-                      </span>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-[#4A071C]">
+                        <span>Subtotal</span>
+                        <span className="font-semibold">
+                          ${subtotal.toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-[#4A071C]">
+                        <span>Shipping</span>
+                        <span className="font-semibold">Free</span>
+                      </div>
+                      <div className="border-t pt-3 flex items-center justify-between">
+                        <span className="font-semibold text-[#4A071C]">
+                          Total
+                        </span>
+                        <span className="text-xl font-bold text-[var(--color-rose-gold)]">
+                          ${subtotal.toFixed(2)}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -375,7 +405,7 @@ export default function Page() {
                       type="submit"
                       form="payment-form"
                       disabled={isSubmitting}
-                      className="w-full py-3 px-4 bg-[var(--color-rose-gold)] text-white rounded-xl hover:bg-opacity-90 disabled:opacity-60"
+                      className="btn btn-primary w-full disabled:opacity-60"
                     >
                       {isSubmitting ? "Processing..." : "Pay Now"}
                     </button>

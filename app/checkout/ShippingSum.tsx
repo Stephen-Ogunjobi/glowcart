@@ -18,9 +18,9 @@ export default function ShippingSummary() {
   );
 
   return (
-    <section className="py-12 px-8">
+    <section className="section py-12 px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-playfair text-[#4A071C] mb-8">Checkout</h1>
+        <h1 className="text-4xl font-playfair glow-text-rose mb-8">Checkout</h1>
 
         {/* Order Summary */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -29,7 +29,7 @@ export default function ShippingSummary() {
           </div>
 
           <aside className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-6">
+            <div className="card elevated p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-semibold text-[#4A071C]">
                   Order Summary
@@ -47,10 +47,7 @@ export default function ShippingSummary() {
               {cartItems.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-gray-500 mb-4">Your cart is empty</p>
-                  <Link
-                    href="/shop"
-                    className="inline-block px-5 py-2 border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] rounded-xl hover:bg-[var(--color-rose-gold)] hover:text-white transition-colors"
-                  >
+                  <Link href="/shop" className="btn btn-outline">
                     Continue Shopping
                   </Link>
                 </div>
@@ -147,14 +144,14 @@ export default function ShippingSummary() {
                   <div className="mt-6 flex gap-3">
                     <Link
                       href="/shop"
-                      className="flex-1 py-3 px-4 border-2 border-[var(--color-rose-gold)] text-[var(--color-rose-gold)] rounded-xl text-center hover:bg-[var(--color-rose-gold)] hover:text-white transition-colors"
+                      className="btn btn-outline flex-1 text-center"
                     >
                       Continue Shopping
                     </Link>
                     <button
                       type="submit"
                       form="shipping-form"
-                      className="flex-1 py-3 px-4 bg-[var(--color-rose-gold)] text-white rounded-xl hover:bg-opacity-90 transition-colors"
+                      className="btn btn-primary flex-1"
                     >
                       Continue to Payment
                     </button>
