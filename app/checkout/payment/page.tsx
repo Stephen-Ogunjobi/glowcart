@@ -56,7 +56,7 @@ type PaymentFormValues = z.infer<typeof paymentSchema>;
 export default function Page() {
   const router = useRouter();
   const cartItems = useCartStore((s) => s.cartItems);
-  // const clearCart = useCartStore((s) => s.clearCart);
+  const clearCart = useCartStore((s) => s.clearCart);
   const shippingInfo = useCheckoutStore((s) => s.shippingInfo);
   // const clearShippingInfo = useCheckoutStore((s) => s.clearShippingInfo);
 
@@ -87,6 +87,7 @@ export default function Page() {
   const onSubmit = (): void => {
     toast.success("Payment successful");
     router.push("/checkout/success");
+    clearCart();
   };
 
   return (
