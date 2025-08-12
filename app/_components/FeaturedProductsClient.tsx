@@ -4,14 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCartBtn from "./AddToCartBtn";
 import { useInView } from "./useInView";
-
-type Product = {
-  id: number | string;
-  name: string;
-  description: string;
-  price: number;
-  image_url: string;
-};
+import type { Product } from "./Products";
 
 export default function FeaturedProductsClient({
   products,
@@ -46,7 +39,7 @@ export default function FeaturedProductsClient({
                   <span className="text-2xl font-bold text-[var(--color-rose-gold)]">
                     ${product.price}
                   </span>
-                  <AddToCartBtn product={product as any} />
+                  <AddToCartBtn product={product} />
                 </div>
               </div>
             </div>
