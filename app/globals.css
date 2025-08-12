@@ -259,6 +259,31 @@ a {
   );
 }
 
+/* Hero content-only background: warm pink gradient inside the stroked card */
+.hero-content-bg {
+  position: relative;
+  isolation: isolate; /* keep pseudo behind children without escaping */
+}
+.hero-content-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: radial-gradient(
+      600px 320px at 12% 10%,
+      rgba(247, 201, 209, 0.35) 0%,
+      rgba(247, 201, 209, 0) 55%
+    ),
+    radial-gradient(
+      520px 300px at 90% 25%,
+      rgba(233, 226, 255, 0.22) 0%,
+      rgba(233, 226, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #fffaf7 0%, #f5ede6 50%, #f8e1e7 100%);
+  z-index: -1;
+}
+
 /* Utilities: Labels */
 .badge,
 .chip,

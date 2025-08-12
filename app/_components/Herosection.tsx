@@ -19,7 +19,7 @@ export default function Herosection() {
         }}
       />
 
-      <div className="w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible gradient-stroke">
+      <div className="w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible gradient-stroke hero-content-bg">
         <span aria-hidden className="edge-flare block" />
         {/* Sparkles */}
         <span
