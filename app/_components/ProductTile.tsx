@@ -17,6 +17,7 @@ export default function ProductTile({ product }: { product: Product }) {
           src={product.image_url}
           alt={product.name}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
         <button

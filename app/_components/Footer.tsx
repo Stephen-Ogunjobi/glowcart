@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   FaFacebook,
@@ -13,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 export default function Footer() {
   return (
@@ -28,9 +31,24 @@ export default function Footer() {
               Exclusive drops, tips, and 10% off your first order.
             </p>
           </div>
-          <form className="flex w-full md:w-auto items-center gap-2">
+          <form
+            className="flex w-full md:w-auto items-center gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget as HTMLFormElement;
+              const data = new FormData(form);
+              const email = String(data.get("email") || "").trim();
+              if (!email) {
+                toast.error("Please enter your email");
+                return;
+              }
+              toast.success("Subscribed! Welcome to the glow club.");
+              form.reset();
+            }}
+          >
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
               className="w-full md:w-80 px-4 py-3 rounded-full border border-[var(--border-soft)] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-rose-gold)]"
               aria-label="Email address"

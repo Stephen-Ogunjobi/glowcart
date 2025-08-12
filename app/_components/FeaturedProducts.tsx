@@ -15,7 +15,7 @@ export default async function FeaturedProducts() {
   }
 
   return (
-    <section className="py-16 px-8 section">
+    <section className="py-16 px-8 section pattern-dots">
       <h2 className="text-4xl font-playfair text-[#4A071C] text-center mb-12">
         Featured Products
       </h2>

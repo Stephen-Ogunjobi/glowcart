@@ -32,9 +32,10 @@ export default function ClientProducts({
   return (
     <section className="section py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-playfair text-[#4A071C] text-center mb-8">
+        <h2 className="text-4xl font-playfair text-[#4A071C] text-center mb-3">
           All Products
         </h2>
+        <div className="divider-dotted mb-8" />
 
         <FilterProducts
           categories={Array.from(new Set(products.map((p) => p.category)))}

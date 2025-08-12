@@ -15,6 +15,7 @@ export default function Banner({
           src={image}
           alt={name}
           fill
+          sizes="100vw"
           className="object-cover object-[center_35%] scale-110"
           priority
         />

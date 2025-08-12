@@ -20,7 +20,7 @@ export default function Categories() {
             key={category.name}
             className="group block"
           >
-            <div className="relative h-72 rounded-2xl overflow-hidden card hover-tilt">
+            <div className="relative h-72 rounded-2xl overflow-hidden card hover-tilt gradient-stroke">
               <Image
                 src={category.image}
                 alt={category.name}

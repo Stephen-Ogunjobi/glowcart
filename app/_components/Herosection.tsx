@@ -19,8 +19,24 @@ export default function Herosection() {
         }}
       />
 
-      <div className="w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible">
+      <div className="w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible gradient-stroke">
         <span aria-hidden className="edge-flare block" />
+        {/* Sparkles */}
+        <span
+          aria-hidden
+          className="sparkle sparkle-rose sparkle-animate sm"
+          style={{ left: 18, top: 22 }}
+        />
+        <span
+          aria-hidden
+          className="sparkle sparkle-lavender sparkle-animate"
+          style={{ left: 140, top: 60 }}
+        />
+        <span
+          aria-hidden
+          className="sparkle sparkle-rose sparkle-animate lg"
+          style={{ left: 80, top: 120 }}
+        />
         <h2 className="font-playfair font-bold leading-tight text-5xl sm:text-6xl md:text-7xl glow-text-rose">
           <span className="gradient-text">Glow Starts</span>
           <span className="block mt-2 text-5xl sm:text-6xl md:text-7xl font-bold">
@@ -45,7 +61,7 @@ export default function Herosection() {
           src="/glowcart hero.jpg"
           alt="Glow Starts Here"
           fill
-          sizes="(max-width: 768px) 40vw, 40vw"
+          sizes="(max-width: 768px) 50vw, 40vw"
           className="object-cover object-center zoom-pulse-slow"
           priority
         />

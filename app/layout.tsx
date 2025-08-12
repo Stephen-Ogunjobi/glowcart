@@ -34,20 +34,47 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakartaSans.variable} ${playfair.variable}`}>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only fixed top-2 left-2 z-[100] bg-white text-[#4A071C] border border-[var(--border-soft)] rounded px-3 py-2 shadow"
+        >
+          Skip to content
+        </a>
         <Toaster
           position="top-right"
           toastOptions={{
+            duration: 2400,
             style: {
-              background: "#4A071C",
-              color: "#fff",
-              borderRadius: "10px",
+              background: "rgba(255,255,255,0.9)",
+              color: "var(--text-primary)",
+              borderRadius: "14px",
+              border: "1px solid var(--border-soft)",
+              boxShadow: "0 10px 30px rgba(183,110,121,0.18)",
+              backdropFilter: "blur(8px)",
             },
-            duration: 2000,
+            success: {
+              iconTheme: {
+                primary: "#b76e79",
+                secondary: "#fff",
+              },
+              style: {
+                border: "1px solid rgba(183,110,121,0.25)",
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: "#b76e79",
+                secondary: "#fff",
+              },
+              style: {
+                border: "1px solid rgba(183,110,121,0.25)",
+              },
+            },
           }}
         />
         <CartModal />
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
       </body>
     </html>
