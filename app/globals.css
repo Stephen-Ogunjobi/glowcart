@@ -112,6 +112,14 @@ a {
   text-decoration: none;
 }
 
+/* Active nav link: stronger rose-gold border with subtle glow */
+.navlink-active {
+  border-color: var(--color-rose-gold) !important;
+  box-shadow: 0 2px 14px rgba(183, 110, 121, 0.18),
+    inset 0 0 0 2px rgba(183, 110, 121, 0.55);
+  color: var(--color-rose-gold);
+}
+
 /* Animated badge helper */
 @keyframes badgePulse {
   0% {
