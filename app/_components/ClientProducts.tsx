@@ -46,8 +46,8 @@ export default function ClientProducts({
           <NoProductsFound />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 [grid-auto-rows:1fr]">
-            {filteredProducts.map((product) => (
-              <ProductTile key={product.id} product={product} />
+            {filteredProducts.map((product, index) => (
+              <ProductTile key={product.id} product={product} index={index} />
             ))}
           </div>
         )}
