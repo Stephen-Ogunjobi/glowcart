@@ -53,11 +53,27 @@ export async function getProductByCategory(category: string) {
 
   return products;
 }
-export async function getBlog(id: number) {
+
+export async function getBlogs(limit?: number) {
+  let query = supabase
+    .from("blogs")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (limit && Number.isFinite(limit)) query = query.limit(limit);
+
+  const { data: blogs, error } = await query;
+  if (error) {
+    throw new Error("Blogs could not be loaded");
+  }
+
+  return blogs;
+}
+
+export async function getBlogBySlug(slug: string) {
   const { data: blog, error } = await supabase
     .from("blogs")
     .select("*")
-    .eq("id", id)
+    .eq("slug", slug)
     .single();
 
   if (error) {

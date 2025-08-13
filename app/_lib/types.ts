@@ -9,3 +9,13 @@ export interface Product {
   image_url: string;
   skin_type: string[];
 }
+
+export interface BlogPost {
+  id: number;
+  created_at: string;
+  title: string;
+  slug: string;
+  excerpt?: string | null;
+  cover_image?: string | null;
+  content?: string | null;
+}
