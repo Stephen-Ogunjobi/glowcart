@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
 export async function getProducts(limit: number = 3) {
@@ -51,4 +52,17 @@ export async function getProductByCategory(category: string) {
   }
 
   return products;
+}
+export async function getBlog(id: number) {
+  const { data: blog, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    notFound();
+  }
+
+  return blog;
 }

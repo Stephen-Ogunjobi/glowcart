@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useInView } from "./useInView";
 
 export default function Herosection() {
+  const { ref, isInView } = useInView<HTMLDivElement>();
   return (
     <section className="relative overflow-hidden section min-h-[80vh] h-[85vh] flex flex-row">
       <div
@@ -19,7 +23,12 @@ export default function Herosection() {
         }}
       />
 
-      <div className="w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible gradient-stroke hero-content-bg">
+      <div
+        ref={ref}
+        className={`w-1/2 relative bg-[var(--color-pink)]/10 px-4 sm:px-8 md:px-16 py-8 md:py-0 flex flex-col justify-center items-start gap-4 md:gap-8 overflow-visible gradient-stroke hero-content-bg will-change-transform transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
         <span aria-hidden className="edge-flare block" />
         {/* Sparkles */}
         <span
