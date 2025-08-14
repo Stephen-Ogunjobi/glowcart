@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getBlogBySlug } from "@/app/_lib/data-services";
+import ReactMarkdown from "react-markdown";
 
 interface BlogPageProps {
   params: { slug: string };
@@ -9,25 +10,6 @@ interface BlogPageProps {
 export default async function BlogPostPage({ params }: BlogPageProps) {
   const blog = await getBlogBySlug(params.slug);
   if (!blog) notFound();
-  const isHtml =
-    typeof blog.content === "string" && blog.content.trim().startsWith("<");
-
-  function convertMarkdownToHtml(markdown: string): string {
-    const escapeHtml = (str: string) =>
-      str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/\"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    const paragraphs = markdown.trim().split(/\r?\n\s*\r?\n/);
-    const htmlParagraphs = paragraphs.map((para) => {
-      const withLineBreaks = escapeHtml(para).replace(/\r?\n/g, "<br/>");
-      return `<p>${withLineBreaks}</p>`;
-    });
-    return htmlParagraphs.join("\n");
-  }
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-8">
@@ -51,20 +33,11 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           className="w-full h-auto rounded mb-6"
         />
       )}
-      {blog.content &&
-        (isHtml ? (
-          <div
-            className="prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-          />
-        ) : (
-          <div
-            className="prose max-w-none"
-            dangerouslySetInnerHTML={{
-              __html: convertMarkdownToHtml(blog.content),
-            }}
-          />
-        ))}
+      {blog.content && (
+        <div className="prose max-w-none">
+          <ReactMarkdown>{blog.content}</ReactMarkdown>
+        </div>
+      )}
     </article>
   );
 }

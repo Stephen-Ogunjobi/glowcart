@@ -537,6 +537,91 @@ a {
   will-change: transform, opacity;
 }
 
+/* Basic prose styling for markdown content */
+.prose {
+  line-height: 1.7;
+}
+.prose h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+.prose h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+.prose h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+.prose h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+.prose p {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+.prose ul,
+.prose ol {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.625rem;
+}
+.prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose blockquote {
+  font-style: italic;
+  border-left: 4px solid var(--color-rose-gold);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+}
+.prose code {
+  background: var(--color-beige);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+.prose pre {
+  background: var(--color-beige);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+.prose a {
+  color: var(--color-rose-gold);
+  text-decoration: underline;
+}
+.prose a:hover {
+  text-decoration: none;
+}
+.prose strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.prose em {
+  font-style: italic;
+}
+
 /* Reduced motion respect */
 @media (prefers-reduced-motion: reduce) {
   * {
