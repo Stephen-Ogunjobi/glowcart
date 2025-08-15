@@ -10,8 +10,8 @@ export default function UserPage() {
           Your Account
         </h1>
         <p className="mt-3 text-[var(--color-rose-gold)] opacity-80 max-w-2xl">
-          You are browsing as a guest. This is a demo experience, so there’s no
-          sign-in or account creation.
+          You are browsing as a guest. This is a demo experience, so
+          there&apos;s no sign-in or account creation.
         </p>
       </section>
 
@@ -141,7 +141,7 @@ export default function UserPage() {
                     About this demo
                   </h2>
                   <p className="text-sm text-[var(--color-rose-gold)]/70 font-medium">
-                    What's included
+                    What&apos;s included
                   </p>
                 </div>
               </div>

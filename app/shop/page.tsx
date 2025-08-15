@@ -11,12 +11,13 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const resolvedSearchParams = await searchParams;
   return (
     <div>
       <Banner image="/shop-subhero.jpg" name="Shop" />
-      <Products searchParams={searchParams} />
+      <Products searchParams={resolvedSearchParams} />
     </div>
   );
 }

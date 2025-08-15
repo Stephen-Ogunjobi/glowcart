@@ -4,11 +4,12 @@ import { getBlogBySlug } from "@/app/_lib/data-services";
 import ReactMarkdown from "react-markdown";
 
 interface BlogPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default async function BlogPostPage({ params }: BlogPageProps) {
-  const blog = await getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const blog = await getBlogBySlug(slug);
   if (!blog) notFound();
 
   return (
@@ -43,7 +44,8 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 }
 
 export async function generateMetadata({ params }: BlogPageProps) {
-  const blog = await getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const blog = await getBlogBySlug(slug);
   if (!blog) return {};
   return {
     title: blog.title,
