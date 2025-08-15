@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { getBlogs } from "../_lib/data-services";
 import type { BlogPost } from "../_lib/types";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Read the latest skincare tips, product reviews, and beauty advice from our experts. Stay updated with the newest trends in skincare.",
+};
 
 export default async function Page() {
   const blogs: BlogPost[] | null = await getBlogs();

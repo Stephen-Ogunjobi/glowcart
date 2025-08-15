@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import type { Metadata } from "next";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import { Toaster } from "react-hot-toast";
@@ -19,13 +20,70 @@ const playfair = Playfair_Display({
   variable: "--font-serif",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
-    template: "%s | GlowCart ",
-    default: "GlowCart ",
+    template: "%s | GlowCart",
+    default: "GlowCart - Your Skincare Destination",
   },
-  description: "GlowCart - Your Skincare Destination",
+  description:
+    "Discover premium skincare products at GlowCart. From cleansers to serums, find everything you need for healthy, glowing skin.",
+  keywords: [
+    "skincare",
+    "beauty",
+    "cosmetics",
+    "skin care products",
+    "glowing skin",
+    "premium skincare",
+  ],
+  authors: [{ name: "GlowCart" }],
+  creator: "GlowCart",
+  publisher: "GlowCart",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://glowcart.com",
+    siteName: "GlowCart",
+    title: "GlowCart - Your Skincare Destination",
+    description:
+      "Discover premium skincare products at GlowCart. From cleansers to serums, find everything you need for healthy, glowing skin.",
+    images: [
+      {
+        url: "/glowcart-hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "GlowCart - Premium Skincare Products",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GlowCart - Your Skincare Destination",
+    description:
+      "Discover premium skincare products at GlowCart. From cleansers to serums, find everything you need for healthy, glowing skin.",
+    images: ["/glowcart-hero.jpg"],
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+  },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
