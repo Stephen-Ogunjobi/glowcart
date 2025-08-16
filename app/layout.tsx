@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://glowcart.com",
+    url: "https://glowcart-pi.vercel.app",
     siteName: "GlowCart",
     title: "GlowCart - Your Skincare Destination",
     description:
