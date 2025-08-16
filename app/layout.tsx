@@ -57,21 +57,12 @@ export const metadata: Metadata = {
     title: "GlowCart - Your Skincare Destination",
     description:
       "Discover premium skincare products at GlowCart. From cleansers to serums, find everything you need for healthy, glowing skin.",
-    images: [
-      {
-        url: "https://glowcart-pi.vercel.app/glowcart-hero.jpg",
-        width: 1200,
-        height: 630,
-        alt: "GlowCart - Premium Skincare Products",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "GlowCart - Your Skincare Destination",
     description:
       "Discover premium skincare products at GlowCart. From cleansers to serums, find everything you need for healthy, glowing skin.",
-    images: ["https://glowcart-pi.vercel.app/glowcart-hero.jpg"],
     creator: "@glowcart",
     site: "@glowcart",
   },
